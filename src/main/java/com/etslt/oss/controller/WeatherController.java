@@ -31,7 +31,7 @@ public class WeatherController {
 		String city = "London";
 		String country = "uk";
 			
-		WeatherResponse weather = weatherService.getWeatherByCity(city, country);
+		WeatherResponse weather = weatherService.getWeatherByCity(city, country, true);
 		return ResponseEntity.ok().body(weather);
 	}
 	
@@ -39,7 +39,7 @@ public class WeatherController {
 	public ResponseEntity<WeatherResponse> getWeatherByGeoLocation() {
 		String lattitude = "35";
 		String longitude = "139";
-		WeatherResponse weather = weatherService.getWeatherByGeoLocation(lattitude, longitude);
+		WeatherResponse weather = weatherService.getWeatherByGeoLocation(lattitude, longitude, true);
 		return ResponseEntity.ok().body(weather);
 	}
 }
