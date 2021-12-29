@@ -1,5 +1,7 @@
 package com.etslt.oss.service;
 
-public class UserService {
+import com.etslt.oss.entity.User;
 
+public interface UserService {
+	User registerUser(User user);
 }
