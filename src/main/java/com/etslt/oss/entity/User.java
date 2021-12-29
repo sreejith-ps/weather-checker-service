@@ -22,12 +22,14 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
-	public User(Long userId, String name, String email, String password) {
+	public User() {}
+	
+	public User(Long userId, String name, String password, String email) {
 		super();
 		this.userId = userId;
 		this.name = name;
-		this.email = email;
 		this.password = password;
+		this.email = email;
 	}
 	public Long geUsertId() {
 		return userId;
