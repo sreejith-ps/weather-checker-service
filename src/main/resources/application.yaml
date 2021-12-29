@@ -1,4 +1,5 @@
 spring:
+  application:    name: weather-consume-api
   h2:
     console:
       enabled: true
