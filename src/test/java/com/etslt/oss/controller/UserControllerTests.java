@@ -36,7 +36,7 @@ public class UserControllerTests {
 	@Test
 	public void registerUser() throws Exception {
 		User mockUser = new User(1L, "Sreejith", "sreejith@abc.com", "abc@123");
-		String input = getJson(mockUser);
+		String input = getJson(new User(null, "Sreejith", "sreejith@abc.com", "abc@123"));
 		String URI = "/api/users/v1";
 		when(userService.registerUser(Mockito.any(User.class))).thenReturn(mockUser);
 
@@ -48,7 +48,7 @@ public class UserControllerTests {
 		MockHttpServletResponse response = result.getResponse();
 		String output = response.getContentAsString();
 		assertThat(output).isEqualTo(input);
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
 
 	}
 
