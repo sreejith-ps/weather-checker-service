@@ -1,6 +1,7 @@
 package com.etslt.oss.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +20,10 @@ public class UserController {
 	
 	@PostMapping("/v1")
 	public ResponseEntity<User> registerUser(@RequestBody User user) {
-		
+		user = userService.registerUser(user);
 		System.out.println(user);
-		return null;
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(user);
 	}
 
 }
