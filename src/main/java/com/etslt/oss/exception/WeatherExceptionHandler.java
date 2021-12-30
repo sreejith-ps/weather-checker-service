@@ -22,77 +22,72 @@ import com.etslt.oss.dto.ErrorResponse;
 @RestController
 public class WeatherExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(Exception.class)
-  public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-    ErrorResponse exceptionResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-    		ex.getMessage(), new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(),
+				new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
-  @ExceptionHandler(WeatherNotFoundException.class)
-  public final ResponseEntity<Object> handleWeatherNotFoundException(WeatherNotFoundException ex, WebRequest request) {
-	    ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.WEATHER_NOT_AVAILABLE.value(), ex.getMessage(),
-	            new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
-  }
-  
-  @ExceptionHandler(CityNotAvailableException.class)
-  public final ResponseEntity<Object> handleCityNotAvailableException(CityNotAvailableException ex, WebRequest request) {
-	    ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.CITY_NOT_AVAILABLE.value(), ex.getMessage(),
-	            new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
-  }
+	@ExceptionHandler(WeatherNotFoundException.class)
+	public final ResponseEntity<Object> handleWeatherNotFoundException(WeatherNotFoundException ex,
+			WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.WEATHER_NOT_AVAILABLE.value(), ex.getMessage(),
+				new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
 
-  
-  @ExceptionHandler(CoordNotAvailableException.class)
-  public final ResponseEntity<Object> handleCoordNotAvailableException(CoordNotAvailableException ex, WebRequest request) {
-	    ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.LAT_NOT_AVAILABLE.value(), ex.getMessage(),
-	            new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
-  }
+	@ExceptionHandler(CityNotAvailableException.class)
+	public final ResponseEntity<Object> handleCityNotAvailableException(CityNotAvailableException ex,
+			WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.CITY_NOT_AVAILABLE.value(), ex.getMessage(),
+				new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
 
-  @ExceptionHandler(InvalidParamException.class)
-  public final ResponseEntity<Object> handleCoordNotAvailableException(InvalidParamException ex, WebRequest request) {
-	    ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.INVALID_QUERY_TYPE.value(), ex.getMessage(),
-	            new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
-  }
+	@ExceptionHandler(CoordNotAvailableException.class)
+	public final ResponseEntity<Object> handleCoordNotAvailableException(CoordNotAvailableException ex,
+			WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.LAT_NOT_AVAILABLE.value(), ex.getMessage(),
+				new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
 
-  @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-      HttpHeaders headers, HttpStatus status, WebRequest request) {
-	    ErrorResponse exceptionResponse = new ErrorResponse(400,
-	            ex.getBindingResult().toString(), new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
-  } 
-  
+	@ExceptionHandler(InvalidParamException.class)
+	public final ResponseEntity<Object> handleCoordNotAvailableException(InvalidParamException ex, WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.INVALID_QUERY_TYPE.value(), ex.getMessage(),
+				new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
 
-  @ResponseStatus(
-          value = HttpStatus.GATEWAY_TIMEOUT,
-          reason = "Weather Service Not Responding, Try Again")
-  @ExceptionHandler(ServiceUnavailableException.class)
-  public void handleException(ServiceUnavailableException e) {
-	  
-  }
-  
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(400, ex.getBindingResult().toString(), new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
 
-  @ExceptionHandler(UserAlreadyExistsException.class)
-  public final ResponseEntity<Object> handleUserExistsException(UserAlreadyExistsException ex, WebRequest request) {
-	    ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.USER_EXISTS.value(), ex.getMessage(),
-	            new Date());
-    return new ResponseEntity(exceptionResponse, HttpStatus.FOUND);
-  }
-  
+	@ResponseStatus(value = HttpStatus.GATEWAY_TIMEOUT, reason = "Weather Service Not Responding, Try Again")
+	@ExceptionHandler(ServiceUnavailableException.class)
+	public void handleException(ServiceUnavailableException e) {
+
+	}
+
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public final ResponseEntity<Object> handleUserExistsException(UserAlreadyExistsException ex, WebRequest request) {
+		ErrorResponse exceptionResponse = new ErrorResponse(CustomStatus.USER_EXISTS.value(), ex.getMessage(),
+				new Date());
+		return new ResponseEntity(exceptionResponse, HttpStatus.FOUND);
+	}
+
 }
+
 enum CustomStatus {
-	
-	CITY_NOT_AVAILABLE(151, "City Not Available"),
-	COUNTRY_NOT_AVAILABLE(152, "Country Not Available"),
-	LAT_NOT_AVAILABLE(153, "Lattitude or Longitude Not Available"),
-	WEATHER_NOT_AVAILABLE(154, "Weather Not Available"),
-	INVALID_QUERY_TYPE(155, "Invalid Query Type"),
-	USER_EXISTS(156, "User already exists with same name");
-	
+
+	CITY_NOT_AVAILABLE(151, "City Not Available"), COUNTRY_NOT_AVAILABLE(152, "Country Not Available"),
+	LAT_NOT_AVAILABLE(153, "Lattitude or Longitude Not Available"), WEATHER_NOT_AVAILABLE(154, "Weather Not Available"),
+	INVALID_QUERY_TYPE(155, "Invalid Query Type"), USER_EXISTS(156, "User already exists with same name");
+
 	private final int value;
 
 	private final String reasonPhrase;
