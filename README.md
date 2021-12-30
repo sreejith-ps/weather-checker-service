@@ -46,9 +46,29 @@ Please ignore data quality in postman collection.
 All the operations have to be tested using the postman collection attached as no UI is implemented due to time constraints.
 Type information is fetched from a utility method.
 
-Note: please ignore Order entity which is not being used
+Note: Weather API can be tested using the default username - "user" and password - "123" without user registration
 <hr>
   
+  
+#Endpoints Implemented
+  --------------------
+- Register : http://localhost:8080/users/v1/register
+  request body:
+  {
+    "name": "myname",
+    "email": "myname@123.com",
+    "password": "pwd"
+  }
+
+- Weather retrival 
+	By City and Country - http://localhost:8080/api/v1/weather?type=by_city&city=London&country=uk
+	By coordinates      - http://localhost:8080/api/v1/weather?type=by_geo&lat=35&lon=139
+	
+	
+select Authorization type as "Basic Auth" in postman
+
+type parameter is used to distinguish the type of the query. valid values are by_city and by_geo
+	
   
   
   
@@ -68,24 +88,7 @@ Below are the main tasks covered in the code committed so far,
 
 <hr>
    
-#Endpoints Implemented
-  --------------------
-- Register : http://localhost:8080/users/v1/register
-  request body:
-  {
-    "name": "myname",
-    "email": "myname@123.com",
-    "password": "pwd"
-  }
 
-- Weather retrival 
-	By City and Country - http://localhost:8080/api/v1/weather?type=by_city&city=London&country=uk
-	By coordinates      - http://localhost:8080/api/v1/weather?type=by_geo&lat=35&lon=139
-	
-type parameter is used to distinguish the type of the query. valid values are by_city and by_geo
-	
-
- <hr>
    
 
 #Pending implementations / Roadmap
