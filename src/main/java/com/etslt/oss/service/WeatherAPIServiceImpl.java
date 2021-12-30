@@ -1,5 +1,7 @@
 package com.etslt.oss.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,8 @@ import com.etslt.oss.dto.WeatherResponse;
 
 @Service
 public class WeatherAPIServiceImpl implements WeatherAPIService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final String API_KEY = "cd54b7fbdaf08c6e9677d93bfb7a35b2";
 //	private static final String WEATHER_BY_CITY = "api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}";
@@ -38,7 +42,7 @@ public class WeatherAPIServiceImpl implements WeatherAPIService {
 	}
 
 	@Override
-	@Cacheable(value = "geo-weather", key = "'GeoWeather'+#lat + #lon")
+	@Cacheable(value = "ten-minute-cache", key = "'GeoWeather'+#lat + #lon", condition = "#isCacheable != null && #isCacheable")
 	public WeatherResponse getWeatherByGeoLocation(String lat, String lon, Boolean isCacheable) {
 		String uri = WEATHER_BY_GEOLOC;
 		WeatherResponse weather = restTemplate.getForObject(uri, WeatherResponse.class);

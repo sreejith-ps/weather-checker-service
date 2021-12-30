@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeHttpRequests().antMatchers("/api/weather/**").authenticated().and().httpBasic();
+		http.authorizeHttpRequests().antMatchers("/api/**").authenticated().and().httpBasic();
 	}
 	
 	@Bean

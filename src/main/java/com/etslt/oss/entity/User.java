@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="user")
@@ -15,11 +19,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
 	private Long userId;
-	@Column(name = "name")
+	
+	@NotNull(message = "Name can't be null")
+	@NotEmpty(message = "Name can't be empty")
+	@Size(min=3, message="Name should have atleast 3 characters")
+    @Column(name = "name")
 	private String name;
-	@Column(name = "email")
+	
+	@NotNull(message = "Email can't be null")
+	@NotEmpty(message = "Email can't be empty")
+	@Email(message = "Invalid Email format")
+    @Column(name = "email")
 	private String email;
-	@Column(name = "password")
+	
+	@NotNull(message = "Password can't be null")
+	@NotEmpty(message = "Password can't be empty")
+	@Size(min=3, message="Password should have atleast 3 characters")
+    @Column(name = "password")
 	private String password;
 	
 	public User() {}

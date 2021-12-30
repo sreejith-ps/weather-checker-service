@@ -8,4 +8,5 @@ import com.etslt.oss.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByName(String userName);
+	User findByNameOrEmail(String userName, String email);
 }
